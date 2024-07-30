@@ -8,6 +8,8 @@ from kmk.keys import KC
 from kmk.modules.layers import Layers
 from kmk.modules.split import Split, SplitSide
 from kmk.extensions.media_keys import MediaKeys
+from kmk.modules.combos import Combos, Chord
+from kmk.modules.macros import Macros, Press
 
 keyboard = KMKKeyboard()
 
@@ -38,12 +40,30 @@ keyboard.coord_mapping = [
                 21, 22, 23,  47, 46, 45,
 ]
 layers = Layers()
+combos = Combos()
+macros = Macros()
 
-keyboard.modules =[layers, split, MediaKeys()]
+keyboard.modules =[layers, split, MediaKeys(), combos, macros]
 
 # Cleaner key names
 _______ = KC.TRNS
 XXXXXXX = KC.NO
+
+def toggle_drive(keyboard):
+    print('toggling usb drive') #serial feedback
+    import microcontroller
+    if microcontroller.nvm[0] == 0:
+        microcontroller.nvm[0] = 1
+    else:
+        microcontroller.nvm[0] = 0
+
+ToggleDrive = KC.MACRO(toggle_drive, Press(KC.RESET))
+    
+combos.combos = [
+   Chord((KC.TAB, KC.BSPC, KC.SPACE), ToggleDrive),   
+]
+
+
 
 keyboard.keymap = [
         [ #qwerty
