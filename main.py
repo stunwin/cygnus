@@ -53,6 +53,7 @@ keyboard.modules =[layers, split, MediaKeys(), combos, macros, holdtap]
 _______ = KC.TRNS
 XXXXXXX = KC.NO
 DASHALT = KC.HT(KC.MINS, KC.LALT)
+HYPRSPC = KC.HT(KC.SPACE, KC.HYPR)
 
 def toggle_drive(keyboard):
     print('toggling usb drive') #serial feedback
@@ -73,20 +74,20 @@ combos.combos = [
 keyboard.keymap = [
         [ #qwerty
         KC.TAB,    KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                         KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,  KC.BSPC,
-        DASHALT,   KC.A,    KC.S,    KC.D,    KC.F,    KC.G,                         KC.H,    KC.J,    KC.K,    KC.L, KC.SCLN, KC.QUOT,
+        KC.BSLS,   KC.A,    KC.S,    KC.D,    KC.F,    KC.G,                         KC.H,    KC.J,    KC.K,    KC.L, KC.SCLN, KC.QUOT,
         KC.LSFT,   KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,                         KC.N,    KC.M,    KC.COMM, KC.DOT, KC.SLSH, KC.ENTER,
-                                            KC.LGUI,   KC.MO(2),  KC.LCTRL,     KC.SPACE,   KC.MO(1),  KC.BSLS,
+                                            KC.LGUI,   KC.MO(2),  KC.LCTRL,     HYPRSPC,   KC.MO(1),  DASHALT,
         ],
         [ #navsymbol
         KC.ESC,  KC.EXLM, KC.AT,   KC.HASH, KC.DLR, KC.PERC,                         KC.HOME, KC.PGDOWN, KC.PGUP, KC.END,  XXXXXXX,  KC.DEL,
-        XXXXXXX, KC.CIRC, KC.AMPR, KC.ASTR, KC.LPRN, KC.RPRN,                        KC.LEFT, KC.DOWN,   KC.UP,  KC.RIGHT, XXXXXXX, XXXXXXX,
-        KC.LSFT, KC.GRV,  KC.EQL,  KC.MINS, KC.LBRC, KC.RBRC,                        XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                            KC.LALT,   KC.LGUI,  KC.HYPR,     KC.SPACE,   _______,  KC.RALT,
+        _______, KC.CIRC, KC.AMPR, KC.ASTR, KC.LPRN, KC.RPRN,                        KC.LEFT, KC.DOWN,   KC.UP,  KC.RIGHT, XXXXXXX, XXXXXXX,
+        _______, KC.GRV,  KC.EQL,  KC.MINS, KC.LBRC, KC.RBRC,                        XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                                            _______,   KC.LALT,  _______,     _______,   _______,  KC.RALT,
         ],
         [ #numpadFunc
         KC.TAB,    KC.F1,    KC.F2,    KC.F3,    KC.F4,    KC.F5,                    KC.PLUS,  KC.N7, KC.N8, KC.N9, KC.P,  KC.BSPC,
         KC.LCTL,   KC.F6,    KC.F7,    KC.F8,    KC.F9,    KC.F10,                   KC.MINUS, KC.N4, KC.N5, KC.N6, XXXXXXX, XXXXXXX,
-        KC.LSFT,   KC.F11,   KC.F12,   KC.VOLD,  KC.VOLU,  KC.MUTE,                  KC.N0,    KC.N1, KC.N2, KC.N3, XXXXXXX, KC.ENTER,
+        KC.LSFT,   KC.F11,   KC.F12,   KC.VOLD,  KC.VOLU,  KC.MUTE,                  KC.N0,    KC.N1, KC.N2, KC.N3, XXXXXXX, _______,
                                             KC.LALT,   _______,  KC.LCTRL,     KC.DOT,   KC.ASTR,  KC.SLSH,
         ]
 ]
