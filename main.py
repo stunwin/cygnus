@@ -45,7 +45,7 @@ combos = Combos()
 macros = Macros()
 holdtap = HoldTap()
 
-holdtap.tap_time = 300
+holdtap.tap_time = 200
 
 keyboard.modules =[layers, split, MediaKeys(), combos, macros, holdtap]
 
@@ -53,7 +53,15 @@ keyboard.modules =[layers, split, MediaKeys(), combos, macros, holdtap]
 _______ = KC.TRNS
 XXXXXXX = KC.NO
 DASHALT = KC.HT(KC.MINS, KC.LALT)
-HYPRSPC = KC.HT(KC.SPACE, KC.HYPR)
+MODA = KC.HT(KC.A, KC.LGUI, prefer_hold = False, tap_interrupted = True)
+MODS = KC.HT(KC.S, KC.LALT, prefer_hold = False, tap_interrupted = True)
+MODD = KC.HT(KC.D, KC.LCTRL, prefer_hold = False, tap_interrupted = True)
+MODF = KC.HT(KC.F, KC.LSHIFT, prefer_hold = False, tap_interrupted = True)
+MODJ = KC.HT(KC.J, KC.RSHIFT, prefer_hold = False, tap_interrupted = True)
+MODK = KC.HT(KC.K, KC.RCTRL, prefer_hold = False, tap_interrupted = True)
+MODL = KC.HT(KC.L, KC.RALT, prefer_hold = False, tap_interrupted = True)
+MODSCLN = KC.HT(KC.SCLN, KC.RGUI, prefer_hold = False, tap_interrupted = True)
+
 
 def toggle_drive(keyboard):
     print('toggling usb drive') #serial feedback
@@ -66,17 +74,19 @@ def toggle_drive(keyboard):
 ToggleDrive = KC.MACRO(toggle_drive, Press(KC.RESET))
     
 combos.combos = [
-   Chord((KC.TAB, KC.BSPC, KC.SPACE), ToggleDrive),   
+   Chord((KC.TAB, KC.BSPC, KC.Y), ToggleDrive),   
+   Chord((KC.E, KC.R, KC.T), KC.FD(3)),
+   Chord((KC.Y, KC.U, KC.I), KC.FD(0))
 ]
 
 
 
-keyboard.keymap = [
+keyboard.keymap = [ 
         [ #qwerty
         KC.TAB,    KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                         KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,  KC.BSPC,
         KC.BSLS,   KC.A,    KC.S,    KC.D,    KC.F,    KC.G,                         KC.H,    KC.J,    KC.K,    KC.L, KC.SCLN, KC.QUOT,
         KC.LSFT,   KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,                         KC.N,    KC.M,    KC.COMM, KC.DOT, KC.SLSH, KC.ENTER,
-                                            KC.LGUI,   KC.MO(2),  KC.LCTRL,     HYPRSPC,   KC.MO(1),  DASHALT,
+                                            KC.LGUI,   KC.MO(2),  KC.LCTRL,     KC.SPACE,   KC.MO(1),  DASHALT,
         ],
         [ #navsymbol
         KC.ESC,  KC.EXLM, KC.AT,   KC.HASH, KC.DLR, KC.PERC,                         KC.HOME, KC.PGDOWN, KC.PGUP, KC.END,  XXXXXXX,  KC.DEL,
@@ -89,7 +99,12 @@ keyboard.keymap = [
         KC.LCTL,   KC.F6,    KC.F7,    KC.F8,    KC.F9,    KC.F10,                   KC.MINUS, KC.N4, KC.N5, KC.N6, XXXXXXX, XXXXXXX,
         KC.LSFT,   KC.F11,   KC.F12,   KC.VOLD,  KC.VOLU,  KC.MUTE,                  KC.N0,    KC.N1, KC.N2, KC.N3, XXXXXXX, _______,
                                             KC.LALT,   _______,  KC.LCTRL,     KC.DOT,   KC.ASTR,  KC.SLSH,
-        ]
+        ],
+        [#homerow mod test
+        KC.TAB,    KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                         KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,  KC.BSPC,
+        KC.BSLS,   MODA,    MODS,    MODD,    MODF,    KC.G,                         KC.H,    MODJ,    MODK,    MODL, MODSCLN, KC.QUOT,
+        KC.LSFT,   KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,                         KC.N,    KC.M,    KC.COMM, KC.DOT, KC.SLSH, KC.ENTER,
+         ]                                  KC.LGUI,   KC.MO(2),  KC.LCTRL,      KC.SPACE,  KC.MO(1),  DASHALT,
 ]
 # fmt:on
 
