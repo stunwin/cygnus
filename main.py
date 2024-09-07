@@ -1,4 +1,4 @@
-print("Starting...")
+print("Starting Cygnus")
 
 import board
 
@@ -74,7 +74,7 @@ def toggle_drive(keyboard):
 ToggleDrive = KC.MACRO(toggle_drive, Press(KC.RESET))
     
 combos.combos = [
-   Chord((KC.TAB, KC.BSPC, KC.Y), ToggleDrive),   
+   Chord((KC.TAB, KC.BSPC, KC.ENTER), ToggleDrive),   
    Chord((KC.E, KC.R, KC.T), KC.FD(3)),
    Chord((KC.Y, KC.U, KC.I), KC.FD(0))
 ]
@@ -104,7 +104,8 @@ keyboard.keymap = [
         KC.TAB,    KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                         KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,  KC.BSPC,
         KC.BSLS,   MODA,    MODS,    MODD,    MODF,    KC.G,                         KC.H,    MODJ,    MODK,    MODL, MODSCLN, KC.QUOT,
         KC.LSFT,   KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,                         KC.N,    KC.M,    KC.COMM, KC.DOT, KC.SLSH, KC.ENTER,
-         ]                                  KC.LGUI,   KC.MO(2),  KC.LCTRL,      KC.SPACE,  KC.MO(1),  DASHALT,
+                                           KC.LGUI,   KC.MO(2),  KC.LCTRL,      KC.SPACE,  KC.MO(1),  DASHALT,
+         ]
 ]
 # fmt:on
 
