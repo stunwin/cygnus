@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
+#include "features/achordion.h"
 
 // Layer definitions
 enum layers {
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAVSYM] = LAYOUT(
         KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_DEL,
         _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
-        _______, KC_GRV,  KC_EQL,  KC_MINS, KC_LBRC, KC_RBRC,                      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______,
+        _______, KC_GRV,  KC_EQL,  KC_MINS, KC_LBRC, KC_RBRC,                      DT_UP,   DT_DOWN, DT_PRNT, KC_NO,   KC_NO,   _______,
                                             _______, KC_LALT,  _______,      _______, _______, KC_RALT
     ),
 
@@ -79,3 +80,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_LALT, _______, KC_LCTL,       KC_DOT,  KC_ASTR, KC_SLSH
     )
 };
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+if (!process_achordion(keycode, record)) {return false;}
+
+    return true;
+
+}
+
+void housekeeping_task_user(void) {
+  achordion_task();
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HM_S:
+            return 300;
+        case HM_L:
+            return 300;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
