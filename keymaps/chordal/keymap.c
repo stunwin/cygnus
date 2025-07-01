@@ -3,13 +3,13 @@
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
-#include "features/achordion.h"
 
 // Layer definitions
 enum layers {
     _BASE,
     _NAVSYM,
-    _NUMFN
+    _NUMFN,
+    _NOHRM
 };
 
 // Homerow mods
@@ -22,12 +22,25 @@ enum layers {
 #define HM_L RALT_T(KC_L)
 #define HM_SCLN RGUI_T(KC_SCLN)
 
+
+const uint16_t PROGMEM hrm_off[] = {KC_TAB, KC_BSPC, COMBO_END};
+const uint16_t PROGMEM hrm_on[] = {KC_BSLS, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {HM_F, HM_J, COMBO_END};
+const uint16_t PROGMEM reboot[] = {KC_R, KC_T, KC_Y, KC_U, COMBO_END};
+
+combo_t key_combos[] = {
+COMBO(hrm_off, DF(_NOHRM)),
+COMBO(hrm_on, DF(_BASE)),
+COMBO(caps_combo, CW_TOGG),
+COMBO(reboot, QK_BOOT),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base Layer (_BASE):
      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
      * │Tab│ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │Bsp│
      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-     * │ \ │⌘/A│⌥/S│⌃/D│⇧/F│ G │       │ H │⇧/J│⌃/K│⌥/L│⌘/;│ ' │
+     * │ \ │A  │S  │⌃/D│⇧/F│ G │       │ H │⇧/J│⌃/K│L  │;  │ ' │
      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
      * │Sft│ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ / │Ent│
      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -37,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_BASE] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_BSLS, HM_A,    HM_S,    HM_D,    HM_F,    KC_G,                         KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT,
+        KC_BSLS, KC_A,    KC_S,    HM_D,    HM_F,    KC_G,                         KC_H,    HM_J,    HM_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
                                             KC_LGUI, MO(_NUMFN), KC_LCTL,    KC_SPC, MO(_NAVSYM), LALT_T(KC_MINS)
     ),
@@ -48,17 +61,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
      * │   │ ^ │ & │ * │ ( │ ) │       │ ← │ ↓ │ ↑ │ → │   │   │
      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-     * │   │ ` │ = │ - │ [ │ ] │       │   │   │   │   │   │   │
+     * │   │ ` │ = │ - │ [ │ ] │       │Tup│Tdn│Tpr│   │   │   │
      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
      *                 ┌───┬───┬───┐   ┌───┬───┬───┐
-     *                 │   │Alt│   │   │   │   │Alt│
+     *                 │   │Alt│   │   │   │   │ \ │
      *                 └───┴───┴───┘   └───┴───┴───┘
      */
     [_NAVSYM] = LAYOUT(
         KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_DEL,
         _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO,
         _______, KC_GRV,  KC_EQL,  KC_MINS, KC_LBRC, KC_RBRC,                      DT_UP,   DT_DOWN, DT_PRNT, KC_NO,   KC_NO,   _______,
-                                            _______, KC_LALT,  _______,      _______, _______, KC_RALT
+                                            _______, KC_LALT,  _______,      _______, _______, KC_BSLS
     ),
 
     /* Numpad/Function Layer (_NUMFN):
@@ -78,18 +91,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       KC_MINS, KC_4,    KC_5,    KC_6,    KC_NO,   KC_NO,
         KC_LSFT, KC_F11,  KC_F12,  KC_VOLD, KC_VOLU, KC_MUTE,                      KC_0,    KC_1,    KC_2,    KC_3,    KC_NO,   _______,
                                             KC_LALT, _______, KC_LCTL,       KC_DOT,  KC_ASTR, KC_SLSH
-    )
+    ),
+
+    /* _BASE layer without HRM (_NOHRM):
+     * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+     * │Tab│ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │Bsp│
+     * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+     * │ \ │A  │S  │D  │F  │ G │       │ H │J  │K  │L  │;  │ ' │
+     * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+     * │Sft│ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ / │Ent│
+     * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+     *                 ┌───┬───┬───┐   ┌───┬───┬───┐
+     *                 │GUI│Num│Ctl│   │Spc│Nav│⌥/-│
+     *                 └───┴───┴───┘   └───┴───┴───┘
+     */
+    [_NOHRM] = LAYOUT(
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_BSLS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+                                            KC_LGUI, MO(_NUMFN), KC_LCTL,    KC_SPC, MO(_NAVSYM), LALT_T(KC_MINS)
+    ),
+
 };
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-if (!process_achordion(keycode, record)) {return false;}
-
-    return true;
-
-}
-
-void housekeeping_task_user(void) {
-  achordion_task();
-}
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
