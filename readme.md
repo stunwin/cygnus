@@ -1,12 +1,13 @@
-# cygnus
+# Stunwin's Dactyl Cygnus
+
+## *a neat little chunky guy*
 
 ![cygnus](/images/keeb1.jpeg)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [steve unwin](https://github.com/stunwin)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+This is a build of the Dactyl Cygnus, which was designed by the inimitable and brilliant [juhakaup](https://github.com/juhakaup). The full set of information, including bill of materials and a thorough build guide can be found at [this link right here.](https://github.com/juhakaup/keyboards/tree/main/Cygnus%20v1.0)
+I would also like to thank Joel Telling, the 3D Printing Nerd for kindly printing the case out for me. [Go subscribe to his excellent youtube channel.](https://www.youtube.com/channel/UC_7aK9PpYTqt08ERh1MewlQ)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -124,6 +125,3 @@ Combos, or chords, allow you to trigger an action by pressing multiple keys simu
 | `\` + `'`                   | Switch to `_BASE` layer              | Re-enables the homerow mods.                                                |
 | `F` + `J`                   | Toggle Caps Word (`CW_TOGG`)         | Capitalizes the next word you type. good for, say, typing out qmk keycodes.  |
 | `R` + `T` + `Y` + `U`       | Reboot to Bootloader (`QK_BOOT`)     | Puts the keyboard into bootloader mode for flashing new firmware.           |
-
-```
-
