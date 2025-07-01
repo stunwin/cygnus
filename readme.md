@@ -120,8 +120,7 @@ Combos, or chords, allow you to trigger an action by pressing multiple keys simu
 
 | Keys Pressed Simultaneously | Action                               | Description                                                                 |
 | :-------------------------- | :----------------------------------- | :-------------------------------------------------------------------------- |
-| `Tab` + `Backspace`         | Switch to `_NOHRM` layer             | Disables the homerow mods for gaming or when you just ge sick of them.
-|
+| `Tab` + `Backspace`         | Switch to `_NOHRM` layer             | Disables the homerow mods for gaming or when you just ge sick of them.|
 | `\` + `'`                   | Switch to `_BASE` layer              | Re-enables the homerow mods.                                                |
 | `F` + `J`                   | Toggle Caps Word (`CW_TOGG`)         | Capitalizes the next word you type. good for, say, typing out qmk keycodes.  |
 | `R` + `T` + `Y` + `U`       | Reboot to Bootloader (`QK_BOOT`)     | Puts the keyboard into bootloader mode for flashing new firmware.           |
